@@ -292,9 +292,15 @@ class _AnnotatedHeatmap(object):
         for n, row in enumerate(self.z):
             for m, val in enumerate(row):
                 font_color = min_text_color if val < z_mid else max_text_color
+                anno_text= str(self.annotation_text[n][m])
+                if(anno_text == 'True'):
+                    anno_text= '\\'
+                elif (anno_text == 'False'):
+                    anno_text = ''
+
                 annotations.append(
                     graph_objs.layout.Annotation(
-                        text=str(self.annotation_text[n][m]),
+                        text=anno_text,
                         x=self.x[m],
                         y=self.y[n],
                         xref="x1",
