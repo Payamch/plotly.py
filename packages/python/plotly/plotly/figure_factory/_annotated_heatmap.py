@@ -56,6 +56,7 @@ def create_annotated_heatmap(
     font_colors=None,
     showscale=False,
     reversescale=False,
+    pbias = None,
     **kwargs
 ):
     """
@@ -105,7 +106,7 @@ def create_annotated_heatmap(
     colorscale = colorscale_validator.validate_coerce(colorscale)
 
     annotations = _AnnotatedHeatmap(
-        z, x, y, annotation_text, colorscale, font_colors, reversescale, **kwargs
+        z, x, y, annotation_text, colorscale, font_colors, reversescale, pbias, **kwargs
     ).make_annotations()
 
     if x or y:
@@ -293,8 +294,9 @@ class _AnnotatedHeatmap(object):
             for m, val in enumerate(row):
                 font_color = min_text_color if val < z_mid else max_text_color
                 anno_text= str(self.annotation_text[n][m])
+                font_size = 40 * (pbias[n]/100)
                 if(anno_text == 'True'):
-                    anno_text= '\\'
+                    anno_text= '.'
                 elif (anno_text == 'False'):
                     anno_text = ''
 
@@ -305,7 +307,10 @@ class _AnnotatedHeatmap(object):
                         y=self.y[n],
                         xref="x1",
                         yref="y1",
-                        font=dict(color=font_color),
+                        font=graph_objs.Font(
+                            family="Gill Sans MT",
+                            size = font_size
+                            ),
                         showarrow=False,
                     )
                 )
