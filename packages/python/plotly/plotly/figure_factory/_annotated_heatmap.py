@@ -170,7 +170,7 @@ class _AnnotatedHeatmap(object):
     """
 
     def __init__(
-        self, z, x, y, annotation_text, colorscale, font_colors, reversescale, **kwargs
+        self, z, x, y, annotation_text, colorscale, font_colors, reversescale, pbias, **kwargs
     ):
 
         self.z = z
@@ -184,6 +184,8 @@ class _AnnotatedHeatmap(object):
             self.y = range(len(z))
         if annotation_text is not None:
             self.annotation_text = annotation_text
+        if pbias is not None:
+            self.pbias = pbias
         else:
             self.annotation_text = self.z
         self.colorscale = colorscale
@@ -294,7 +296,7 @@ class _AnnotatedHeatmap(object):
             for m, val in enumerate(row):
                 font_color = min_text_color if val < z_mid else max_text_color
                 anno_text= str(self.annotation_text[n][m])
-                font_size = 40 * (pbias[n]/100)
+                font_size = self.pbias[m]
                 if(anno_text == 'True'):
                     anno_text= '.'
                 elif (anno_text == 'False'):
