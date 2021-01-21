@@ -301,7 +301,7 @@ class _AnnotatedHeatmap(object):
                     font_size = 1
                 if(anno_text == 'True'):
                     anno_text= '.'
-                elif (anno_text == 'False' || font_size == 1):
+                elif (anno_text == 'False' or font_size == 1):
                     anno_text = ''
 
                 annotations.append(
