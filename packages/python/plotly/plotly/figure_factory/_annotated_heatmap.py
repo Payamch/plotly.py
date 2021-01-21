@@ -297,9 +297,11 @@ class _AnnotatedHeatmap(object):
                 font_color = min_text_color if val < z_mid else max_text_color
                 anno_text= str(self.annotation_text[n][m])
                 font_size = self.pbias[m]
+                if(font_size == 0)
+                    font_size = 1
                 if(anno_text == 'True'):
                     anno_text= '.'
-                elif (anno_text == 'False'):
+                elif (anno_text == 'False' || font_size == 1):
                     anno_text = ''
 
                 annotations.append(
